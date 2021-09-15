@@ -24,46 +24,95 @@
     <!-- Form -->
     <section id="card">
         <div class="card m-auto shadow-sm p-3 mb-5 bg-body" style="width: 1000px;">
-            <div class="card-body">
-              <p class="text-center">Selamat datang, Silahkan diisi form berikut ini</p>
-              <!-- input form -->
-              <form>
-                <div class="mb-3">
-                  <label for="name" class="form-label">Nama Lengkap</label>
-                  <input type="text" class="form-control" id="name" aria-describedby="name">
+            <div class="card-body col-md">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md">
+                            <p class="text-center">Selamat datang, Silahkan diisi form berikut ini</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md">
+                            <form name="form-whitecat20">
+                                <div class="alert alert-success alert-dismissible fade show d-none my-alert" role="alert">
+                                    <strong>Thank You!</strong> We've Received your Message.
+                                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                  </div>
+                                <div class="mb-3">
+                                  <label for="name" class="form-label">Nama Lengkap</label>
+                                  <input type="text" class="form-control" id="name" aria-describedby="name" name="nama">
+                                </div>
+                                <div class="mb-3">
+                                  <label for="Email" class="form-label">Email</label>
+                                  <input type="text" class="form-control" id="Email" aria-describedby="emailHelp" name="email">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="univ" class="form-label">Universitas</label>
+                                    <input type="text" class="form-control" id="univ" aria-describedby="name" name="univ">
+                                  </div>
+                                <div class="mb-3">
+                                    <label for="Jurusan" class="form-label">Jurusan</label>
+                                    <input type="text" class="form-control" id="Jurusan" aria-describedby="name" name="jurusan">
+                                  </div>
+                                  <div class="mb-3">
+                                    <label for="jalurterima" class="form-label">Jalur Diterima</label>
+                                    <select id="jalurterima" class="form-select" name="jalur">
+                                      <option>SNMPTN</option>
+                                      <option>SBMPTN</option>
+                                      <option>Seleksi Mandiri</option>
+                                      <option>Lainnya</option>
+                                    </select>
+                                  </div>
+                                  <div class="form-floating mb-3">
+                                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" name="alasan"></textarea>
+                                    <label for="floatingTextarea2">Alasan Memilih Jurusan</label>
+                                  </div>
+                                <button type="submit" class="btn btn-primary btn-kirim">Submit</button>
+                                <button class="btn btn-primary btn-loading d-none" type="button" disabled>
+                                    <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                                    Loading...
+                                  </button>
+                              </form>
+
+                        </div>
+                    </div>
                 </div>
-                <div class="mb-3">
-                  <label for="Email" class="form-label">Email</label>
-                  <input type="text" class="form-control" id="Email" aria-describedby="emailHelp">
-                </div>
-                <div class="mb-3">
-                    <label for="univ" class="form-label">Universitas</label>
-                    <input type="text" class="form-control" id="univ" aria-describedby="name">
-                  </div>
-                <div class="mb-3">
-                    <label for="Jurusan" class="form-label">Jurusan</label>
-                    <input type="text" class="form-control" id="Jurusan" aria-describedby="name">
-                  </div>
-                  <div class="mb-3">
-                    <label for="jalurterima" class="form-label">Jalur Diterima</label>
-                    <select id="jalurterima" class="form-select">
-                      <option>SNMPTN</option>
-                      <option>SBMPTN</option>
-                      <option>Seleksi Mandiri</option>
-                      <option>Lainnya</option>
-                    </select>
-                  </div>
-                  <div class="form-floating mb-3">
-                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px"></textarea>
-                    <label for="floatingTextarea2">Alasan Memilih Jurusan</label>
-                  </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+              
+              
+              
             </div>
           </div>
     </section>
-
-
+    <!-- Bootstrap Java Script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <!-- WebApp Spreadsheet -->
+    <script>
+        const scriptURL ="https://script.google.com/macros/s/AKfycbyP94uYLlo1tbvyIMJ-a4t6BH99vl0on3Sv23MZFrLJqvue7c-umWQ6RH1Y0mkFXV6MsQ/exec"
+        const form = document.forms["form-whitecat20"];
+        const btnKirim = document.querySelector(".btn-kirim");
+        const btnLoading = document.querySelector(".btn-loading");
+        const myAlert = document.querySelector(".my-alert");
+  
+        form.addEventListener("submit", (e) => {
+          e.preventDefault();
+          // ketika tombol diklik,
+          // tampilkan tombol loading, hilangkan tombol kirim.
+          btnLoading.classList.toggle("d-none");
+          btnKirim.classList.toggle("d-none");
+          fetch(scriptURL, { method: "POST", body: new FormData(form) })
+            .then((response) => {
+              //tampilkan tombol kirim, hilangkan tombol loading
+              btnLoading.classList.toggle("d-none");
+              btnKirim.classList.toggle("d-none");
+              //alert
+              myAlert.classList.toggle("d-none");
+              //reser form
+              form.reset();
+              console.log("Success!", response);
+            })
+            .catch((error) => console.error("Error!", error.message));
+        });
+      </script>
 
   </body>
 </html>

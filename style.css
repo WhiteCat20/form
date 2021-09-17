@@ -5,3 +5,13 @@ body {
 h2 {
   color: lightgray;
 }
+footer {
+  font-size: 11px;
+}
+.footer {
+  color: white;
+  margin: auto;
+  text-align: center;
+  padding-bottom: 4rem;
+  font-size: 11px;
+}
